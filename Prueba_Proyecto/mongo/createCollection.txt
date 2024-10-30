@@ -1,0 +1,4 @@
+show dbs
+use proyecto
+db.createCollection("citas")
+show collections
