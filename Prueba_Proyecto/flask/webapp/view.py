@@ -2,16 +2,26 @@ from flask import jsonify, request
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from . import app
+import os
 
-# Configura la conexión a MongoDB
+client = None
 
-client = MongoClient("mongodb:27017")
-db = client["proyecto"]
-citas_collection = db["citas"]
+@app.before_request
+def initialize_db():
+    global client
+    mongo_uri = os.environ.get("MONGO_URI")
+    client = MongoClient(mongo_uri)
+
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Esto demuestra que si encuentra la instancia"}), 200
 
 # Crear una nueva cita
 @app.route('/crear/cita', methods=['POST'])
 def crear_cita():
+    db = client["proyecto"]
+    citas_collection = db["citas"]
     data = request.json
     cita = {
         "nombre": data.get("nombre"),
@@ -25,6 +35,8 @@ def crear_cita():
 # Consultar todas las citas
 @app.route('/ver/citas', methods=['GET'])
 def obtener_citas():
+    db = client["proyecto"]
+    citas_collection = db["citas"]
     citas = []
     for cita in citas_collection.find():
         citas.append({
@@ -39,6 +51,8 @@ def obtener_citas():
 # Consultar una cita por ID
 @app.route('/consultar/cita/<id>', methods=['GET'])
 def obtener_cita(id):
+    db = client["proyecto"]
+    citas_collection = db["citas"]
     cita = citas_collection.find_one({"_id": ObjectId(id)})
     if cita:
         return jsonify({
@@ -53,6 +67,8 @@ def obtener_cita(id):
 # Actualizar una cita
 @app.route('/modificar/cita/<id>', methods=['PUT'])
 def actualizar_cita(id):
+    db = client["proyecto"]
+    citas_collection = db["citas"]
     data = request.json
     update_result = citas_collection.update_one(
         {"_id": ObjectId(id)},
@@ -70,6 +86,8 @@ def actualizar_cita(id):
 # Eliminar una cita
 @app.route('/borrar/cita/<id>', methods=['DELETE'])
 def eliminar_cita(id):
+    db = client["proyecto"]
+    citas_collection = db["citas"]
     delete_result = citas_collection.delete_one({"_id": ObjectId(id)})
     if delete_result.deleted_count == 1:
         return jsonify({"message": "Cita eliminada"}), 200
