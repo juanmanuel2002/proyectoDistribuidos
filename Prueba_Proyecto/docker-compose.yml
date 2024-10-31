@@ -7,17 +7,29 @@ services:
       - 8080
     depends_on:
       - mongodb
+    networks:
+      - mi_red
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
   nginx:
     build: ./nginx
     container_name: nginx
     restart: always
     ports:
       - 8003:80
+    networks:
+      - mi_red
   mongodb:
     image: mongo:4.2.0
     container_name: mongodb
     volumes:
       - mongo_data:/data/db
     restart: always
+    networks:
+      - mi_red
+    
+
+networks:
+  mi_red:
 volumes:
   mongo_data:
