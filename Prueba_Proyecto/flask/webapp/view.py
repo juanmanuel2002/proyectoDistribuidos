@@ -48,7 +48,7 @@ def crear_cita():
         "numeroDeCita": numero_de_cita
     }
     result = citas_collection.insert_one(cita)
-    return jsonify({"message": "Cita creada", "id": str(result.inserted_id)}), 201
+    return jsonify({"message": "Cita creada", "numeroDeCita": numero_de_cita}), 201
 
 # Consultar todas las citas
 @app.route('/ver/citas', methods=['GET'])
