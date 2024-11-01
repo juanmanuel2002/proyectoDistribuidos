@@ -75,11 +75,12 @@ def obtener_cita(numeroDeCita):
     cita = citas_collection.find_one({"numeroDeCita": numeroDeCita})
     if cita:
         return jsonify({
-            "id": str(cita["_id"]),
-            "nombre": cita["nombre"],
-            "fechaCita": cita["fechaCita"],
-            "hora": cita["hora"],
-            "descripcion": cita["descripcion"]
+            "nombre": cita.get("nombre", ""),
+            "fechaCita": cita.get("fechaCita", ""),
+            "hora": cita.get("hora", ""),
+            "descripcion": cita.get("descripcion", ""),
+            "numeroDeCita": cita.get("numeroDeCita", ""),
+            "fechaActualizacionCita": cita.get("fechaActualizacion","")
         }), 200
     return jsonify({"message": "Cita no encontrada"}), 404
 
