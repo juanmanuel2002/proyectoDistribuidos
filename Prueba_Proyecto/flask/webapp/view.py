@@ -41,7 +41,7 @@ def crear_cita():
 
     cita = {
         "nombre": data.get("nombre"),
-        "fecha": data.get("fecha"),
+        "fechaCita": data.get("fecha"),
         "hora": data.get("hora"),
         "descripcion": data.get("descripcion"),
         "fechaDeCreacion": fecha_creacion,
@@ -59,10 +59,11 @@ def obtener_citas():
     for cita in citas_collection.find():
         citas.append({
             "nombre": cita.get("nombre", ""),
-            "fecha": cita.get("fecha", ""),
+            "fechaCita": cita.get("fechaCita", ""),
             "hora": cita.get("hora", ""),
             "descripcion": cita.get("descripcion", ""),
-            "numeroDeCita": cita.get("numeroDeCita", "")
+            "numeroDeCita": cita.get("numeroDeCita", ""),
+            "fechaActualizacionCita": cita.get("fechaActualizacion","")
         })
     return jsonify(citas), 200
 
@@ -88,13 +89,23 @@ def actualizar_cita(numeroDeCita):
     db = client["proyecto"]
     citas_collection = db["citas"]
     data = request.json
+    # Lista de propiedades permitidas
+    propiedades_permitidas = {"nombre", "fecha", "hora", "descripcion"}
+    
+    # Validación: Verifica que no haya propiedades adicionales
+    if not propiedades_permitidas.issuperset(data.keys()):
+        return jsonify({"error": "Propiedades no permitidas en el cuerpo de la solicitud"}), 400
+
+     # Agregar fecha de creación
+    fecha_actualizacion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     update_result = citas_collection.update_one(
         {"numeroDeCita": numeroDeCita},
         {"$set": {
             "nombre": data.get("nombre"),
-            "fecha": data.get("fecha"),
+            "fechaCita": data.get("fecha"),
             "hora": data.get("hora"),
-            "descripcion": data.get("descripcion")
+            "descripcion": data.get("descripcion"),
+            "fechaActualizacion":fecha_actualizacion
         }}
     )
     if update_result.matched_count == 1:
