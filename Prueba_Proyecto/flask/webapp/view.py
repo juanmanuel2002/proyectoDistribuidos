@@ -77,7 +77,7 @@ def obtener_cita(numeroDeCita):
         return jsonify({
             "id": str(cita["_id"]),
             "nombre": cita["nombre"],
-            "fecha": cita["fecha"],
+            "fechaCita": cita["fechaCita"],
             "hora": cita["hora"],
             "descripcion": cita["descripcion"]
         }), 200
