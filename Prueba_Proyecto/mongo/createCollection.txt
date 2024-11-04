@@ -1,4 +1,5 @@
 show dbs
 use proyecto
-db.createCollection("citas")
 show collections
+db.createCollection("citas")
+db.citas.find().pretty()

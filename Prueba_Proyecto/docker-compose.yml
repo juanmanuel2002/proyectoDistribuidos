@@ -24,6 +24,7 @@ services:
     container_name: mongodb
     volumes:
       - mongo_data:/data/db
+      - ./mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     restart: always
     networks:
       - mi_red
