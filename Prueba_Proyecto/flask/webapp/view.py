@@ -3,6 +3,8 @@ from pymongo import MongoClient
 from . import app
 from datetime import datetime
 import os
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 
 client = None
 
@@ -12,7 +14,6 @@ def initialize_db():
     global client
     mongo_uri = os.environ.get("MONGO_URI")
     client = MongoClient(mongo_uri)
-
 
 @app.route('/')
 def home():
@@ -122,6 +123,50 @@ def eliminar_cita(numeroDeCita):
     if delete_result.deleted_count == 1:
         return jsonify({"message": "Cita eliminada"}), 200
     return jsonify({"message": "Cita no encontrada"}), 404
+
+
+@app.route('/crear/usuario', methods=['POST'])
+def crear_usuario():
+    db = client["proyecto"]
+    usuarios_collection = db["usuarios"]
+    data = request.json
+    
+    # Validación de entrada
+    username = data.get("usuario")
+    password = data.get("password")
+    if not username or not password:
+        return jsonify({"message": "Usuario y contraseña son requeridos"}), 400
+
+    # Verificar si el usuario ya existe
+    if usuarios_collection.find_one({"usuario": username}):
+        return jsonify({"message": "El usuario ya existe"}), 409
+    
+    # Crear el nuevo usuario con contraseña cifrada
+    nuevo_usuario = {
+        "usuario": username,
+        "contrasena": generate_password_hash(password)
+    }
+    usuarios_collection.insert_one(nuevo_usuario)
+    return jsonify({"message": "Usuario creado exitosamente"}), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    db = client["proyecto"]
+    usuarios_collection = db["usuarios"]
+    data = request.json
+    
+    # Validación de entrada
+    username = data.get("usuario")
+    password = data.get("password")
+    if not username or not password:
+        return jsonify({"message": "Usuario y contraseña son requeridos"}), 400
+
+    # Buscar usuario en la colección
+    usuario = usuarios_collection.find_one({"usuario": username})
+    if usuario and check_password_hash(usuario["contrasena"], password):
+        return jsonify({"message": "Login exitoso"}), 200
+    
+    return jsonify({"message": "Usuario o contraseña incorrectos"}), 401
 
 if __name__== '_main_':
     app.run(debug=True)
