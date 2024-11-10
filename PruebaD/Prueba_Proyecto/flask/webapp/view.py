@@ -16,13 +16,12 @@ def initialize_db():
     mongo_uri = os.environ.get("MONGO_URI")
     client = MongoClient(mongo_uri)
 
-
-
 #_______________________________________________________________________________________________________
 @app.route('/')
 def home():
     #return jsonify({"message": "Bienvenido al servicio de generacion de citas medicas "}), 200
     return render_template('inicio.html')
+
 
 #_______________________________________________________________________________________________________
 # Ruta para cargar el formulario de inicio de sesión
@@ -49,6 +48,35 @@ def login():
         return jsonify({"message": "Login exitoso"}), 200
     
     return jsonify({"message": "Usuario o contraseña incorrectos"}), 401
+#_________________________________________________________________________________________________________
+@app.route('/registro', methods=['GET'])
+def crear_usuario_page():
+    return render_template('registro.html')
+
+@app.route('/registro', methods=['POST'])
+def crear_usuario():
+    db = client["proyecto"]
+    usuarios_collection = db["usuarios"]
+    data = request.json
+    
+    # Validación de entrada
+    username = data.get("usuario")
+    password = data.get("password")
+    if not username or not password:
+        return jsonify({"message": "Usuario y contraseña son requeridos"}), 400
+
+    # Verificar si el usuario ya existe
+    if usuarios_collection.find_one({"usuario": username}):
+        return jsonify({"message": "El usuario ya existe"}), 409
+    
+    # Crear el nuevo usuario con contraseña cifrada
+    nuevo_usuario = {
+        "usuario": username,
+        "password": generate_password_hash(password)
+    }
+    usuarios_collection.insert_one(nuevo_usuario)
+    return jsonify({"message": "Usuario creado exitosamente"}), 201
+
 #_________________________________________________________________________________________________________
 
 # Crear una nueva cita
@@ -155,31 +183,6 @@ def eliminar_cita(numeroDeCita):
     if delete_result.deleted_count == 1:
         return jsonify({"message": "Cita eliminada"}), 200
     return jsonify({"message": "Cita no encontrada"}), 404
-
-
-@app.route('/crear/usuario', methods=['POST'])
-def crear_usuario():
-    db = client["proyecto"]
-    usuarios_collection = db["usuarios"]
-    data = request.json
-    
-    # Validación de entrada
-    username = data.get("usuario")
-    password = data.get("password")
-    if not username or not password:
-        return jsonify({"message": "Usuario y contraseña son requeridos"}), 400
-
-    # Verificar si el usuario ya existe
-    if usuarios_collection.find_one({"usuario": username}):
-        return jsonify({"message": "El usuario ya existe"}), 409
-    
-    # Crear el nuevo usuario con contraseña cifrada
-    nuevo_usuario = {
-        "usuario": username,
-        "password": generate_password_hash(password)
-    }
-    usuarios_collection.insert_one(nuevo_usuario)
-    return jsonify({"message": "Usuario creado exitosamente"}), 201
 
 
 if __name__== '_main_':

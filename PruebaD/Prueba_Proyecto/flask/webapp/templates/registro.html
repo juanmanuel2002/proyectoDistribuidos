@@ -1,1 +1,25 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Sregistro.css') }}">
+</head>
+<body>
+    <div class="register-container">
+        <h2>Crear Cuenta</h2>
+        <form id="register-form">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="usuario" required>
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Registrarse</button>
+        </form>
+        <p id="response-message"></p>
+    </div>
+    <script src="{{ url_for('static', filename='scripts/SCregistro.js') }}"></script>
+</body>
+</html>
