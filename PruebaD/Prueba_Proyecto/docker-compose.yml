@@ -12,7 +12,7 @@ services:
     environment:
       - MONGO_URI=mongodb://mongodb:27017
   frontend:
-    build: ./frontend
+    build: ./flask/webapp/frontend/
     container_name: frontend
     restart: always
     expose:

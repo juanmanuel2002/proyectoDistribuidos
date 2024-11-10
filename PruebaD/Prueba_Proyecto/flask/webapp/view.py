@@ -22,7 +22,6 @@ def home():
     #return jsonify({"message": "Bienvenido al servicio de generacion de citas medicas "}), 200
     return render_template('inicio.html')
 
-
 #_______________________________________________________________________________________________________
 # Ruta para cargar el formulario de inicio de sesión
 @app.route('/login', methods=['GET'])
