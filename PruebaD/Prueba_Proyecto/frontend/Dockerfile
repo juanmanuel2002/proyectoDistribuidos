@@ -11,3 +11,4 @@ COPY ./templates /usr/share/nginx/html/templates
 EXPOSE 80
 #xdd
 #YA JALO TU
+#NO SE 
