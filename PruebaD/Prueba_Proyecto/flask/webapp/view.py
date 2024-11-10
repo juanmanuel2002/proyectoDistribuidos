@@ -16,6 +16,8 @@ def initialize_db():
     mongo_uri = os.environ.get("MONGO_URI")
     client = MongoClient(mongo_uri)
 
+
+
 #_______________________________________________________________________________________________________
 @app.route('/')
 def home():
