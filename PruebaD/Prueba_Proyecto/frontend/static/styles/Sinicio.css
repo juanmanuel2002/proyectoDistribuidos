@@ -1,0 +1,119 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Background and main layout */
+body {
+    background-color: #111;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Container for structured layout */
+.container {
+    max-width: 600px;
+    padding: 30px;
+    background-color: #1e1e1e;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    text-align: center;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Main heading */
+h1 {
+    color: #ff5ea5;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    animation: slideIn 1s ease-out;
+}
+
+/* Navigation bar */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    animation: fadeIn 1.5s ease-in;
+}
+
+nav a {
+    color: #fff;
+    background-color: #ff5ea5;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 94, 165, 0.4);
+}
+
+nav a:hover {
+    background-color: #e64a8e;
+    transform: scale(1.05);
+}
+
+/* Button hover effect */
+nav a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #ff5ea5;
+    transition: width 0.3s;
+    margin: auto;
+}
+
+nav a:hover::after {
+    width: 80%;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Subtle Footer Style (optional) */
+footer {
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: 40px;
+    animation: fadeIn 1.8s ease-in;
+}
+
+footer a {
+    color: #ff5ea5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #e64a8e;
+}

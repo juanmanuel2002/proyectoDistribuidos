@@ -1,0 +1,124 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main body layout */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #111;
+}
+
+/* Login container */
+.login-container {
+    width: 350px;
+    padding: 30px;
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #ff5ea5;
+    margin-bottom: 30px;
+    animation: slideIn 1s ease-out;
+}
+
+/* Form labels */
+label {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Input fields */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ff5ea5;
+    border-radius: 8px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #ff5ea5;
+    box-shadow: 0 0 5px #ff5ea5;
+}
+
+/* Submit button */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #ff5ea5;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 94, 165, 0.4);
+}
+
+button:hover {
+    background-color: #e64a8e;
+    transform: scale(1.05);
+}
+
+/* Response message (e.g. error or success) */
+#response-message {
+    text-align: center;
+    color: #ff5ea5;
+    margin-top: 20px;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeInMessage 1s forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

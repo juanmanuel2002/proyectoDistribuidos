@@ -11,6 +11,14 @@ services:
       - mi_red
     environment:
       - MONGO_URI=mongodb://mongodb:27017
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: always
+    expose:
+      - 80
+    networks:
+      - mi_red
   nginx:
     build: ./nginx
     container_name: nginx
@@ -19,6 +27,9 @@ services:
       - 8003:80
     networks:
       - mi_red
+    depends_on:
+      - flask
+      - frontend
   mongodb:
     image: mongo:4.2.0
     container_name: mongodb

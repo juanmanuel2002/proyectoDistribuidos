@@ -43,7 +43,7 @@ def login():
 
     # Buscar usuario en la colección
     usuario = usuarios_collection.find_one({"usuario": username})
-    if usuario and check_password_hash(usuario["contrasena"], password):
+    if usuario and check_password_hash(usuario["password"], password):
         return jsonify({"message": "Login exitoso"}), 200
     
     return jsonify({"message": "Usuario o contraseña incorrectos"}), 401
@@ -174,7 +174,7 @@ def crear_usuario():
     # Crear el nuevo usuario con contraseña cifrada
     nuevo_usuario = {
         "usuario": username,
-        "contrasena": generate_password_hash(password)
+        "password": generate_password_hash(password)
     }
     usuarios_collection.insert_one(nuevo_usuario)
     return jsonify({"message": "Usuario creado exitosamente"}), 201
