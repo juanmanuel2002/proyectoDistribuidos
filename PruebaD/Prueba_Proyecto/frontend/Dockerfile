@@ -10,3 +10,4 @@ COPY ./templates /usr/share/nginx/html/templates
 # Expone el puerto 80 para acceder al frontend
 EXPOSE 80
 #xdd
+#YA JALO TU
