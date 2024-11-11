@@ -20,7 +20,12 @@ document.getElementById('register-form').addEventListener('submit', async functi
         if (response.status === 201) {
             // Registro exitoso
             responseMessage.style.color = "green";
-            responseMessage.textContent = data.message || "Usuario creado exitosamente";
+            responseMessage.textContent = data.message || "Usuario creado exitosamente . Redirigiendo a Inicio";
+
+            setTimeout(()=>{
+                window.location.href = "/";
+            },1500);
+
         } else if (response.status === 400) {
             // Error de validación de datos
             responseMessage.style.color = "red";

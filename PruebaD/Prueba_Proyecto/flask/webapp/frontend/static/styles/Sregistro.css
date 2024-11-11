@@ -14,10 +14,12 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #111;
+    position: relative;
+    padding-top: 60px; /* Espacio para la flecha */
 }
 
-/* Login container with smooth fade-in */
-.login-container {
+/* Register container with fade-in effect */
+.register-container {
     width: 350px;
     padding: 40px;
     background-color: #1e1e1e;
@@ -27,7 +29,7 @@ body {
     transform: scale(1.05);
 }
 
-/* Heading with subtle glow effect */
+/* Heading with glow effect */
 h2 {
     text-align: center;
     font-size: 1.8rem;
@@ -36,7 +38,7 @@ h2 {
     animation: glow 1.5s infinite alternate;
 }
 
-/* Form labels with soft pink tint */
+/* Form labels */
 label {
     font-size: 1rem;
     color: #ddd;
@@ -45,7 +47,7 @@ label {
     animation: fadeIn 1s ease-in;
 }
 
-/* Input fields with smooth transitions */
+/* Input fields */
 input[type="text"], input[type="password"] {
     width: 100%;
     padding: 12px;
@@ -64,7 +66,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     box-shadow: 0 0 8px #ff5ea5;
 }
 
-/* Button with animated hover and pulse effect */
+/* Submit button */
 button {
     width: 100%;
     padding: 14px;
@@ -84,7 +86,7 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Response message with smooth opacity transition */
+/* Response message */
 #response-message {
     text-align: center;
     color: #ff5ea5;
@@ -92,6 +94,47 @@ button:hover {
     font-size: 1rem;
     opacity: 0;
     animation: fadeInMessage 1s forwards;
+}
+
+/* Back to home arrow */
+.back-to-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #ff5ea5;
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.back-to-home:hover {
+    color: #e64a8e;
+    transform: translateX(-5px);
+}
+
+
+/* Login button outside of registration form */
+#login-btn {
+    width: 100%;
+    padding: 12px;  /* Slightly larger padding for emphasis */
+    background-color: #ff5ea5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.0rem; /* Larger font size for emphasis */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 94, 165, 0.4);
+    animation: fadeInScale 1s ease-out;
+    margin-top: 10px;
+}
+
+#login-btn:hover {
+    background-color: #e64a8e;
+    transform: scale(1.05);
 }
 
 /* Animations */
@@ -130,5 +173,17 @@ button:hover {
     }
     50% {
         transform: scale(1.05);
+    }
+}
+
+/* New animation for Login button */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 }
