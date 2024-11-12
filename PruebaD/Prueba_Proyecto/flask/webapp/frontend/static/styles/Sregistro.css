@@ -14,44 +14,40 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #111;
-    position: relative;
-    padding-top: 60px; /* Espacio para la flecha */
 }
 
-/* Register container with fade-in effect */
+/* Register container */
 .register-container {
     width: 350px;
-    padding: 40px;
+    padding: 30px;
     background-color: #1e1e1e;
     border-radius: 15px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
-    animation: fadeIn 1.5s ease-in-out;
-    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 1s ease-in-out;
 }
 
-/* Heading with glow effect */
+/* Heading */
 h2 {
     text-align: center;
     font-size: 1.8rem;
     color: #ff5ea5;
     margin-bottom: 30px;
-    animation: glow 1.5s infinite alternate;
+    animation: slideIn 1s ease-out;
 }
 
 /* Form labels */
 label {
     font-size: 1rem;
-    color: #ddd;
+    color: #fff;
     margin-bottom: 5px;
     display: block;
-    animation: fadeIn 1s ease-in;
 }
 
 /* Input fields */
 input[type="text"], input[type="password"] {
     width: 100%;
     padding: 12px;
-    margin-top: 10px;
+    margin-top: 8px;
     margin-bottom: 20px;
     border: 1px solid #ff5ea5;
     border-radius: 8px;
@@ -63,14 +59,14 @@ input[type="text"], input[type="password"] {
 
 input[type="text"]:focus, input[type="password"]:focus {
     border-color: #ff5ea5;
-    box-shadow: 0 0 8px #ff5ea5;
+    box-shadow: 0 0 5px #ff5ea5;
 }
 
-/* Submit button */
+/* Register button */
 button {
     width: 100%;
     padding: 14px;
-    background-color: #ff5ea5;
+    background-color: #ff5ea5; /* Color principal */
     color: white;
     border: none;
     border-radius: 25px;
@@ -78,7 +74,6 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 5px 15px rgba(255, 94, 165, 0.4);
-    animation: pulse 2s infinite;
 }
 
 button:hover {
@@ -86,25 +81,34 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Response message */
-#response-message {
-    text-align: center;
-    color: #ff5ea5;
-    margin-top: 20px;
-    font-size: 1rem;
-    opacity: 0;
-    animation: fadeInMessage 1s forwards;
+/* Login button */
+#login-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #555; /* Color diferente para el botón de inicio de sesión */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 94, 165, 0.4);
+    margin-top: 15px;
+}
+
+#login-btn:hover {
+    background-color: #444;
+    transform: scale(1.05);
 }
 
 /* Back to home arrow */
 .back-to-home {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 15px;
+    left: 15px;
     color: #ff5ea5;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-decoration: none;
-    font-weight: bold;
     transition: color 0.3s ease, transform 0.3s ease;
     display: inline-flex;
     align-items: center;
@@ -115,26 +119,14 @@ button:hover {
     transform: translateX(-5px);
 }
 
-
-/* Login button outside of registration form */
-#login-btn {
-    width: 100%;
-    padding: 12px;  /* Slightly larger padding for emphasis */
-    background-color: #ff5ea5;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 1.0rem; /* Larger font size for emphasis */
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 5px 15px rgba(255, 94, 165, 0.4);
-    animation: fadeInScale 1s ease-out;
-    margin-top: 10px;
-}
-
-#login-btn:hover {
-    background-color: #e64a8e;
-    transform: scale(1.05);
+/* Response message */
+#response-message {
+    text-align: center;
+    color: #ff5ea5;
+    margin-top: 20px;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeInMessage 1s forwards;
 }
 
 /* Animations */
@@ -149,41 +141,22 @@ button:hover {
     }
 }
 
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 @keyframes fadeInMessage {
     from {
         opacity: 0;
     }
     to {
         opacity: 1;
-    }
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 8px rgba(255, 94, 165, 0.6);
-    }
-    to {
-        text-shadow: 0 0 15px rgba(255, 94, 165, 1);
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-/* New animation for Login button */
-@keyframes fadeInScale {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
     }
 }

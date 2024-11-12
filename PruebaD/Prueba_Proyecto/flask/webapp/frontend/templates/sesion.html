@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/Ssesion.css') }}">
 </head>
 <body>
+    <!-- Flecha para redirigir al inicio -->
+    <a href="/" class="back-arrow">&#8592; Inicio</a>
+    
     <div class="login-container">
         <h2>Iniciar Sesión</h2>
         <form id="login-form">
@@ -18,8 +21,13 @@
             
             <button type="submit">Iniciar Sesión</button>
         </form>
+        
+        <!-- Botón de redirección a registro -->
+        <button onclick="window.location.href='/registro'" class="register-button">Registrarse</button>
+        
         <p id="response-message"></p>
     </div>
+    
     <script src="{{ url_for('static', filename='scripts/SCsesion.js') }}"></script>
 </body>
 </html>

@@ -21,6 +21,11 @@ document.getElementById('login-form').addEventListener('submit', async function(
             // Login exitoso
             responseMessage.style.color = "green";
             responseMessage.textContent = data.message || "Login exitoso"; // Si no hay mensaje, muestra un mensaje por defecto.
+
+            setTimeout(()=>{
+                window.location.href = "/menu_cita";
+            },1500);
+
         } else if (response.status === 400) {
             // Error de validación de datos
             responseMessage.style.color = "red";

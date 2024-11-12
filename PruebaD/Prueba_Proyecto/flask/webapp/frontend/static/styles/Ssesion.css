@@ -16,6 +16,20 @@ body {
     background-color: #111;
 }
 
+/* Flecha de regreso a inicio */
+.back-arrow {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.5rem;
+    color: #ff5ea5;
+    text-decoration: none;
+}
+
+.back-arrow:hover {
+    color: #e64a8e;
+}
+
 /* Login container */
 .login-container {
     width: 350px;
@@ -78,6 +92,25 @@ button {
 
 button:hover {
     background-color: #e64a8e;
+    transform: scale(1.05);
+}
+
+/* Register button styling */
+.register-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #444;
     transform: scale(1.05);
 }
 

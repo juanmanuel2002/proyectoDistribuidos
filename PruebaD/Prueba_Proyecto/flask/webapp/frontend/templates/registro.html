@@ -24,13 +24,15 @@
             <button type="submit">Registrarse</button>
         </form>
         
-        <!-- Mensaje de respuesta -->
-        <p id="response-message"></p>
         
         <!-- Botón para redirigir al inicio de sesión debajo del área de registro -->
         <button id="login-btn" onclick="window.location.href='/login'">
             ¿Ya tienes cuenta? Inicia sesión
         </button>
+
+        <!-- Mensaje de respuesta -->
+        <p id="response-message"></p>
+
     </div>
 
     <script src="{{ url_for('static', filename='scripts/SCregistro.js') }}"></script>

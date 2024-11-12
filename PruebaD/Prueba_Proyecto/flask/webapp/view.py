@@ -78,6 +78,12 @@ def crear_usuario():
 
 #_________________________________________________________________________________________________________
 
+@app.route('/menu_cita')
+def menu_cita():
+    return render_template('menu_cita.html')
+
+#_______________________________________________________________________________________________________
+
 # Crear una nueva cita
 @app.route('/crear/cita', methods=['POST'])
 def crear_cita():

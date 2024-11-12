@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Opciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Smenu_cita.css') }}">
+</head>
+<body>
+    <!-- Botón de salir en la esquina superior izquierda -->
+    <div class="top-left">
+        <a href="{{ url_for('home') }}" class="exit-button">Salir</a>
+    </div>
+
+    <!-- Menú de opciones -->
+    <div class="menu">
+        <h1>Menú de Citas</h1>
+        <a href="crear_cita.html" class="button">Crear Cita</a>
+        <a href="modificar_cita.html" class="button">Modificar Cita</a>
+        <a href="ver_citas.html" class="button">Ver Todas las Citas</a>
+        <a href="borrar_cita.html" class="button">Borrar Cita</a>
+        <a href="consultar_cita.html" class="button">Consultar Cita</a>
+    </div>
+</body>
+</html>
