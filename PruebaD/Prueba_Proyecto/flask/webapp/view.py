@@ -179,16 +179,33 @@ def actualizar_cita(numeroDeCita):
         return jsonify({"message": "Cita actualizada"}), 200
     return jsonify({"message": "Cita no encontrada"}), 404
 
+
+#____________________________________________________________________________________________________
 # Eliminar una cita
-@app.route('/borrar/cita/<numeroDeCita>', methods=['DELETE'])
-def eliminar_cita(numeroDeCita):
+@app.route('/borrar_cita', methods=['GET'])
+def borrar_cita_page():
+    return render_template('borrar_cita.html')
+
+@app.route('/borrar_cita', methods=['DELETE'])
+def eliminar_cita():
+    # Extraer los datos del cuerpo de la solicitud
+    data = request.get_json()
+    numeroDeCita = data.get("numeroDeCita")
+
+    # Verificar que el número de cita exista
+    if not numeroDeCita:
+        return jsonify({"message": "Número de cita no proporcionado"}), 400
+
+    # Conectar a la base de datos y eliminar
     db = client["proyecto"]
     citas_collection = db["citas"]
     delete_result = citas_collection.delete_one({"numeroDeCita": numeroDeCita})
+    
     if delete_result.deleted_count == 1:
         return jsonify({"message": "Cita eliminada"}), 200
-    return jsonify({"message": "Cita no encontrada"}), 404
+    return jsonify({"message": "Cita no encontrada. Reintente"}), 404
 
+#___________________________________________________________________________________________________
 
 if __name__== '_main_':
     app.run(debug=True)

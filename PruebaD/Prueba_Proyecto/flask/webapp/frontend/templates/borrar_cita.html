@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Cita</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Sborrar_cita.css') }}">
+</head>
+<body>
+    <!-- Botón de salir en la esquina superior izquierda -->
+    <div class="top-left">
+        <a href="{{ url_for('menu_cita') }}" class="exit-button">Menu Citas</a>
+    </div>
+
+    <!-- Contenedor para eliminar cita -->
+    <div class="delete-container">
+        <h2>Eliminar Cita</h2>
+        <form id="delete-form">
+            <label for="cita-id">Número de Cita:</label>
+            <input type="text" id="cita-id" name="numeroDeCita" required>
+            <button type="submit">Eliminar Cita</button>
+        </form>
+
+        <!-- Mensaje de respuesta -->
+        <p id="response-message"></p>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts/SCborrar_cita.js') }}"></script>
+</body>
+</html>
