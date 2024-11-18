@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Cita</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Smenu_cita.css') }}">
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="top-left">
+        <a href="{{ url_for('menu_cita') }}" class="exit-button">Regresar</a>
+    </div>
+    
+
+    <!-- Detalles de la cita -->
+    <div class="menu">
+        <h1>Detalles de la Cita</h1>
+        <div class="cita-detail">
+            <p><strong>Número de Cita:</strong> {{ cita.numeroDeCita }}</p>
+            <p><strong>Nombre:</strong> {{ cita.nombre }}</p>
+            <p><strong>Fecha:</strong> {{ cita.fechaCita }}</p>
+            <p><strong>Hora:</strong> {{ cita.hora }}</p>
+            <p><strong>Descripción:</strong> {{ cita.descripcion }}</p>
+            <p><strong>Fecha de Actualización:</strong> {{ cita.fechaActualizacionCita }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,6 +2,23 @@ db = db.getSiblingDB('proyecto');
 
 if(!db.getCollectionNames().includes('citas')){
     db.createCollection('citas');
+
+    db.citas.insertOne({
+            "nombre":"Pepito123",
+            "fecha":"24/06/2002",
+            "hora": "12 pm",
+            "descripcion": "prueba",
+            "numeroDeCita": "C241118001"
+    });
+
+    db.citas.insertOne({
+        "nombre":"Pepito123456",
+        "fecha":"24/06/2002",
+        "hora": "6 pm",
+        "descripcion": "prueba2",
+        "numeroDeCita": "C241118002"
+    });
+    
 }
 
 if(!db.getCollectionNames().includes('usuarios')){

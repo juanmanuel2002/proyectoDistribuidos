@@ -1,4 +1,4 @@
-document.getElementById('login-form').addEventListener('submit', async function(event) {
+document.getElementById('register-form').addEventListener('submit', async function(event) {
     event.preventDefault();
     
     const username = document.getElementById('username').value;
@@ -6,7 +6,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
     const responseMessage = document.getElementById('response-message');
 
     try {
-        const response = await fetch('/login', {
+        const response = await fetch('/registro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -17,18 +17,23 @@ document.getElementById('login-form').addEventListener('submit', async function(
         const data = await response.json();
         
         // Verificar el estado de la respuesta
-        if (response.status === 200) {
-            // Login exitoso
+        if (response.status === 201) {
+            // Registro exitoso
             responseMessage.style.color = "green";
-            responseMessage.textContent = data.message || "Login exitoso"; // Si no hay mensaje, muestra un mensaje por defecto.
+            responseMessage.textContent = data.message || "Usuario creado exitosamente . Redirigiendo a Inicio";
+
+            setTimeout(()=>{
+                window.location.href = "/";
+            },1500);
+
         } else if (response.status === 400) {
             // Error de validación de datos
             responseMessage.style.color = "red";
             responseMessage.textContent = data.message || "Usuario y contraseña son requeridos";
-        } else if (response.status === 401) {
-            // Usuario o contraseña incorrectos
+        } else if (response.status === 409) {
+            // Usuario ya existe
             responseMessage.style.color = "red";
-            responseMessage.textContent = data.message || "Usuario o contraseña incorrectos";
+            responseMessage.textContent = data.message || "El usuario ya existe";
         } else if (response.status === 500) {
             // Error del servidor
             responseMessage.style.color = "red";
@@ -44,4 +49,3 @@ document.getElementById('login-form').addEventListener('submit', async function(
         responseMessage.textContent = "Error en la conexión. Verifica tu conexión a internet o inténtalo más tarde.";
     }
 });
-

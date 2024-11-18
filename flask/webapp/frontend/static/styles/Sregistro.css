@@ -16,8 +16,8 @@ body {
     background-color: #111;
 }
 
-/* Login container */
-.login-container {
+/* Register container */
+.register-container {
     width: 350px;
     padding: 30px;
     background-color: #1e1e1e;
@@ -62,11 +62,11 @@ input[type="text"]:focus, input[type="password"]:focus {
     box-shadow: 0 0 5px #ff5ea5;
 }
 
-/* Submit button */
+/* Register button */
 button {
     width: 100%;
     padding: 14px;
-    background-color: #ff5ea5;
+    background-color: #ff5ea5; /* Color principal */
     color: white;
     border: none;
     border-radius: 25px;
@@ -81,7 +81,45 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Response message (e.g. error or success) */
+/* Login button */
+#login-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #555; /* Color diferente para el botón de inicio de sesión */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 94, 165, 0.4);
+    margin-top: 15px;
+}
+
+#login-btn:hover {
+    background-color: #444;
+    transform: scale(1.05);
+}
+
+/* Back to home arrow */
+.back-to-home {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: #ff5ea5;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.back-to-home:hover {
+    color: #e64a8e;
+    transform: translateX(-5px);
+}
+
+/* Response message */
 #response-message {
     text-align: center;
     color: #ff5ea5;

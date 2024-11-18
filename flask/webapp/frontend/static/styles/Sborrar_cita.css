@@ -1,0 +1,141 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main body layout */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #111;
+    color: #fff;
+    position: relative;
+}
+
+/* Top-left exit button */
+.top-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.exit-button {
+    color: #ff5ea5;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: #333;
+    border: 1px solid #ff5ea5;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.exit-button:hover {
+    background-color: #e64a8e;
+    color: #fff;
+    transform: translateX(-5px);
+}
+
+/* Delete container */
+.delete-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+}
+
+/* Heading */
+.delete-container h2 {
+    font-size: 2rem;
+    color: #ff5ea5;
+    margin-bottom: 20px;
+    animation: slideIn 1s ease-out;
+}
+
+/* Form labels */
+.delete-container label {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Input fields */
+.delete-container input[type="text"] {
+    width: 100%;
+    padding: 16px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ff5ea5;
+    border-radius: 8px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.delete-container input[type="text"]:focus {
+    border-color: #ff5ea5;
+    box-shadow: 0 0 8px #ff5ea5;
+}
+
+/* Submit button */
+.delete-container button {
+    width: 100%;
+    padding: 14px;
+    background-color: #f44336; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+    margin-bottom: 20px; /* Added margin to create space below */
+}
+
+.delete-container button:hover {
+    animation: hoverToRed 0.3s ease forwards; /* Animation for color change */
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes hoverToRed {
+    from {
+        background-color: #f44336;
+    }
+    to {
+        background-color: #d32f2f; /* Darker red */
+    }
+}

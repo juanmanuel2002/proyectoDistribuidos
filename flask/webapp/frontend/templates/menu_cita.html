@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Citas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Smenu_cita.css') }}">
+</head>
+<body>
+    <!-- Botón de salir en la esquina superior izquierda -->
+    <div class="top-left">
+        <a href="{{ url_for('home') }}" class="exit-button">Salir</a>
+    </div>
+
+    <!-- Lista de citas -->
+    <div class="menu">
+        <h1>Lista de Citas</h1>
+        
+        <!-- Verificación de si hay citas -->
+        {% if citas %}
+        <div class="cita-list">
+            {% for cita in citas %}
+            <div class="cita-item">
+                <div>
+                    <p><strong>Número de Cita: {{ cita.numeroDeCita }}</strong></p>
+                </div>
+                <div class="cita-buttons">
+                    <a href="{{ url_for('consultar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Consultar</a>
+                    <a href="{{ url_for('actualizar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Modificar</a>
+                    <a href="{{ url_for('eliminar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Borrar</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No hay citas disponibles en este momento.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
