@@ -1,5 +1,0 @@
-show dbs
-use proyecto
-show collections
-db.createCollection("citas")
-db.citas.find().pretty()

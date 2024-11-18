@@ -44,7 +44,7 @@ body {
 /* Menu container */
 .menu {
     width: 90%;
-    max-width: 600px;
+    max-width: 900px;
     padding: 40px;
     background-color: #1e1e1e;
     border-radius: 15px;
@@ -105,3 +105,41 @@ body {
         transform: translateX(0);
     }
 }
+
+/* Lista de citas y botones */
+.cita-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cita-item {
+    background-color: #2d2d2d;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cita-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.cita-buttons button {
+    background-color: #ff5ea5;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.cita-buttons button:hover {
+    background-color: #e64a8e;
+}
+
