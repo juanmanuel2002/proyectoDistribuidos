@@ -22,7 +22,8 @@
             {% for cita in citas %}
             <div class="cita-item">
                 <div>
-                    <p><strong>Número de Cita: {{ cita.numeroDeCita }}</strong></p>
+                    <p><strong>Número de Cita:  {{ cita.numeroDeCita }}</strong></p>
+                    <p><strong>Nombre de Paciente:  {{ cita.nombre }}</strong></p>
                 </div>
                 <div class="cita-buttons">
                     <a href="{{ url_for('consultar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Consultar</a>
