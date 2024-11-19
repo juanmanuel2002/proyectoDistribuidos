@@ -112,8 +112,21 @@ def crear_cita():
 
     # Generar el prefijo de numeroDeCita
     fecha_actual = datetime.now().strftime("%y%m%d")
-    citas_hoy = citas_collection.count_documents({"numeroDeCita": {"$regex": f"^C{fecha_actual}"}}) + 1
-    numero_de_cita = f"C{fecha_actual}{citas_hoy:03}"
+    #citas_hoy = citas_collection.count_documents({"numeroDeCita": {"$regex": f"^C{fecha_actual}"}}) + 1
+    
+    # Buscar el mayor numeroDeCita para la fecha actual
+    ultima_cita = citas_collection.find_one(
+        {"numeroDeCita": {"$regex": f"^C{fecha_actual}"}},
+        sort=[("numeroDeCita", -1)]
+    )
+    if ultima_cita and "numeroDeCita" in ultima_cita:
+        ultimo_numero = int(ultima_cita["numeroDeCita"][-3:])  # Extraer los últimos 3 dígitos
+    else:
+        ultimo_numero = 0
+
+    # Incrementar el número de cita
+    siguiente_numero = ultimo_numero + 1
+    numero_de_cita = f"C{fecha_actual}{siguiente_numero:03}"
 
     cita = {
         "nombre": data.get("nombre"),
