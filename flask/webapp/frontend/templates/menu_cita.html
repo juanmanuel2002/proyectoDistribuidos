@@ -20,7 +20,7 @@
         {% if citas %}
         <div class="cita-list">
             {% for cita in citas %}
-            <div class="cita-item">
+            <div class="cita-item" id="cita-{{ cita.numeroDeCita }}">
                 <div>
                     <p><strong>Número de Cita:  {{ cita.numeroDeCita }}</strong></p>
                     <p><strong>Nombre de Paciente:  {{ cita.nombre }}</strong></p>
@@ -28,7 +28,7 @@
                 <div class="cita-buttons">
                     <a href="{{ url_for('consultar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Consultar</a>
                     <a href="{{ url_for('actualizar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Modificar</a>
-                    <a href="{{ url_for('eliminar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Borrar</a>
+                    <button class="button delete-button" data-cita-id="{{ cita.numeroDeCita }}">Borrar</button>
                 </div>
             </div>
             {% endfor %}
@@ -37,5 +37,7 @@
         <p>No hay citas disponibles en este momento.</p>
         {% endif %}
     </div>
+
+    <script src="{{ url_for('static', filename='scripts/SCmenu_cita.js') }}"></script>
 </body>
 </html>
