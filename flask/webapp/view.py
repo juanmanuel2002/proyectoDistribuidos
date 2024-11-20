@@ -134,11 +134,14 @@ def crear_cita():
         siguiente_numero = ultimo_numero + 1
         numero_de_cita = f"C{fecha_actual}{siguiente_numero:03}"
 
+        # Convertir al formato dd/mm/yyyy
+        fecha_cita_formateada = datetime.strptime(fecha_cita, "%Y-%m-%d").strftime("%d/%m/%Y")
+
         # Inserción en la base de datos
         cita = {
             "numeroDeCita": numero_de_cita,
             "nombre": nombre,
-            "fechaCita": fecha_cita,
+            "fechaCita": fecha_cita_formateada,
             "hora": hora,
             "descripcion": descripcion,
             "fechaActualizacion": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -222,12 +225,15 @@ def modificar_cita(numeroDeCita):
             # Fecha de actualización - obtenemos la fecha y hora actual del servidor
             fecha_actualizacion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
+            # Convertir al formato dd/mm/yyyy
+            fecha_cita_formateada = datetime.strptime(fechaCita, "%Y-%m-%d").strftime("%d/%m/%Y")
+
             # Actualizar la cita en la base de datos
             update_result = citas_collection.update_one(
                 {"numeroDeCita": numeroDeCita},
                 {"$set": {
                     "nombre": nombre,
-                    "fechaCita": fechaCita,
+                    "fechaCita": fecha_cita_formateada,
                     "hora": hora,
                     "descripcion": descripcion,
                     "fechaActualizacion": fecha_actualizacion  # Usamos la fecha y hora actuales
