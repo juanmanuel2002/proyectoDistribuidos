@@ -6,9 +6,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Background and main layout */
+/* Background with strawberries */
 body {
     background-color: #111;
+    background-image: url('https://img.freepik.com/vector-premium/patron-costuras-fresas-contorno-blanco-sobre-fondo-negro_528213-953.jpg'); /* URL de una textura de fresas */
+    background-size: cover;
+    background-position: center;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -22,19 +25,22 @@ body {
 .container {
     max-width: 600px;
     padding: 30px;
-    background-color: #1e1e1e;
+    background-color: rgba(30, 30, 30, 1.0);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     text-align: center;
     animation: fadeIn 1.2s ease-in-out;
+    border: 3px solid #ff5ea5;
 }
 
 /* Main heading */
 h1 {
     color: #ff5ea5;
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 20px;
     animation: slideIn 1s ease-out;
+    text-shadow: 0 3px 5px rgba(255, 94, 165, 0.7);
+    font-family: 'Comic Sans MS', cursive;
 }
 
 /* Navigation bar */
@@ -60,6 +66,7 @@ nav a {
 nav a:hover {
     background-color: #e64a8e;
     transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 94, 165, 0.6);
 }
 
 /* Button hover effect */
@@ -100,7 +107,7 @@ nav a:hover::after {
     }
 }
 
-/* Subtle Footer Style (optional) */
+/* Footer (optional, not in use) */
 footer {
     color: #777;
     font-size: 0.9rem;

@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/Sinicio.css') }}">
-    <title>Inicio</title>
+    <title>Citas Fresitas</title>
 </head>
 <body>
-    <h1>Bienvenido al servicio de generación de citas médicas</h1>
-    <nav>
-        <!-- Redirigir a la ruta de registro definida en Flask -->
-        <a href="{{ url_for('crear_usuario_page') }}">Registro</a>
-
-        <!-- Redirigir a la ruta de login definida en Flask -->
-        <a href="{{ url_for('login_page') }}">Iniciar Sesión</a>
-    </nav>
+    <div class="container">
+        <h1>Citas Médicas</h1>
+        <nav>
+            <a href="{{ url_for('crear_usuario_page') }}">Registro</a>
+            <a href="{{ url_for('login_page') }}">Iniciar Sesión</a>
+        </nav>
+    </div>
 </body>
 </html>

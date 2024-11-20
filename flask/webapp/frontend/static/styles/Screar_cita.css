@@ -1,0 +1,144 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main body layout */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #111;  /* Fondo oscuro */
+    margin: 0;
+    color: #fff;
+}
+
+/* Contenedor principal */
+.form-container {
+    background-color: #1e1e1e;  /* Fondo oscuro para el contenedor */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #ff5ea5;  /* Rosa */
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* Estilo para los campos del formulario */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #2d2d2d;
+}
+
+/* Textarea resize */
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Estilo para los botones */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: center;
+}
+
+/* Botón Guardar Cambios */
+.submit-button, .cancel-button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    width: 48%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Botón Guardar Cambios */
+.submit-button {
+    background-color: #ff5ea5;  /* Rosa */
+}
+
+.submit-button:hover {
+    background-color: #e64a8e;  /* Rosa más oscuro */
+    transform: scale(1.05);
+}
+
+/* Botón Cancelar */
+.cancel-button {
+    background-color: #333;
+    color: #ff5ea5;
+    border: 1px solid #ff5ea5;
+}
+
+.cancel-button:hover {
+    background-color: #ff5ea5;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Animación de entrada para el contenedor */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilo del botón de salir */
+.top-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.exit-button {
+    color: #ff5ea5;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: #333;
+    border: 1px solid #ff5ea5;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.exit-button:hover {
+    background-color: #e64a8e;
+    color: #fff;
+    transform: translateX(-5px);
+}
