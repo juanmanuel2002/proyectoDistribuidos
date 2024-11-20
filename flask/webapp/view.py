@@ -186,34 +186,41 @@ def obtener_cita(numeroDeCita):
     return jsonify({"message": "Cita no encontrada"}), 404
 
 # Ruta para actualizar una cita
-@app.route('/modificar/cita/<numeroDeCita>', methods=['PUT'])
-def actualizar_cita(numeroDeCita):
+@app.route('/modificar/cita/<numeroDeCita>', methods=['GET', 'PUT'])
+def modificar_cita(numeroDeCita):
     db = client["proyecto"]
     citas_collection = db["citas"]
-    data = request.json
-    
-    # Lista de propiedades permitidas
-    propiedades_permitidas = {"nombre", "fecha", "hora", "descripcion"}
-    
-    # Validación: Verifica que no haya propiedades adicionales
-    if not propiedades_permitidas.issuperset(data.keys()):
-        return jsonify({"error": "Propiedades no permitidas en el cuerpo de la solicitud"}), 400
 
-    # Agregar fecha de actualización
-    fecha_actualizacion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    update_result = citas_collection.update_one(
-        {"numeroDeCita": numeroDeCita},
-        {"$set": {
-            "nombre": data.get("nombre"),
-            "fechaCita": data.get("fecha"),
-            "hora": data.get("hora"),
-            "descripcion": data.get("descripcion"),
-            "fechaActualizacion": fecha_actualizacion
-        }}
-    )
-    if update_result.matched_count == 1:
-        return jsonify({"message": "Cita actualizada"}), 200
-    return jsonify({"message": "Cita no encontrada"}), 404
+    if request.method == 'GET':
+        # Obtener los detalles de la cita
+        cita = citas_collection.find_one({"numeroDeCita": numeroDeCita})
+        if cita:
+            return render_template("modificar_cita.html", cita=cita)
+        return jsonify({"error": "Cita no encontrada"}), 404
+
+    if request.method == 'PUT':
+        data = request.json
+        propiedades_permitidas = {"nombre", "fecha", "hora", "descripcion"}
+
+        if not propiedades_permitidas.issuperset(data.keys()):
+            return jsonify({"error": "Propiedades no permitidas"}), 400
+
+        fecha_actualizacion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        update_result = citas_collection.update_one(
+            {"numeroDeCita": numeroDeCita},
+            {"$set": {
+                "nombre": data.get("nombre"),
+                "fechaCita": data.get("fecha"),
+                "hora": data.get("hora"),
+                "descripcion": data.get("descripcion"),
+                "fechaActualizacion": fecha_actualizacion
+            }}
+        )
+
+        if update_result.matched_count == 1:
+            return jsonify({"message": "Cita actualizada"}), 200
+        return jsonify({"error": "Cita no encontrada"}), 404
+
 
 
 # Ruta para eliminar una cita

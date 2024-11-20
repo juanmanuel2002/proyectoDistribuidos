@@ -41,6 +41,31 @@ body {
     transform: translateX(-5px);
 }
 
+/* Top-right create button */
+.top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.create-button {
+    color: #ff5ea5;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: #333;
+    border: 1px solid #ff5ea5;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.create-button:hover {
+    background-color: #e64a8e;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    color: #fff;
+    transform: translateY(-5px);
+}
+
 /* Menu container */
 .menu {
     width: 90%;
@@ -142,4 +167,3 @@ body {
 .cita-buttons button:hover {
     background-color: #e64a8e;
 }
-

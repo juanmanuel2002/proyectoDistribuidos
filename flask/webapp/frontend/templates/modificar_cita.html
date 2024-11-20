@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Cita</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Smodificar_cita.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Modificar Cita</h1>
+        <form id="modificar-form">
+            <input type="hidden" id="numeroDeCita" value="{{ cita.numeroDeCita }}">
+            
+            <label for="nombre">Nombre del Paciente:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ cita.nombre }}" required>
+            
+            <label for="fecha">Fecha de la Cita:</label>
+            <input type="date" id="fecha" name="fecha" value="{{ cita.fecha }}" required>
+            
+            <label for="hora">Hora de la Cita:</label>
+            <input type="time" id="hora" name="hora" value="{{ cita.hora }}" required>
+            
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4">{{ cita.descripcion }}</textarea>
+            
+            <button type="submit" class="button">Guardar Cambios</button>
+            <a href="{{ url_for('menu_cita') }}" class="button cancel-button">Cancelar</a>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='scripts/SCmodificar_cita.js') }}"></script>
+</body>
+</html>

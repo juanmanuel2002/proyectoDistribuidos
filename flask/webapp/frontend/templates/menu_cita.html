@@ -11,6 +11,11 @@
     <div class="top-left">
         <a href="{{ url_for('home') }}" class="exit-button">Salir</a>
     </div>
+    
+    <!-- Botón para crear cita en la parte superior -->
+    <div class="top-right">
+        <a href="{{ url_for('crear_cita') }}" class="create-button">Crear Cita</a>
+    </div>
 
     <!-- Lista de citas -->
     <div class="menu">
@@ -27,7 +32,7 @@
                 </div>
                 <div class="cita-buttons">
                     <a href="{{ url_for('consultar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Consultar</a>
-                    <a href="{{ url_for('actualizar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Modificar</a>
+                    <a href="{{ url_for('modificar_cita', numeroDeCita=cita.numeroDeCita) }}" class="button">Modificar</a>
                     <button class="button delete-button" data-cita-id="{{ cita.numeroDeCita }}">Borrar</button>
                 </div>
             </div>
