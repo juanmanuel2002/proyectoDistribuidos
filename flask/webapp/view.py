@@ -5,6 +5,7 @@ from datetime import datetime
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template
+from flask import redirect, url_for
 
 client = None
 
@@ -94,50 +95,43 @@ def menu_cita():
 
 
 # Ruta para crear una nueva cita
-@app.route('/crear/cita', methods=['POST'])
+
+@app.route('/crear/cita', methods=['GET', 'POST'])
 def crear_cita():
-    db = client["proyecto"]
-    citas_collection = db["citas"]
-    data = request.json
-    
-    # Lista de propiedades permitidas
-    propiedades_permitidas = {"nombre", "fecha", "hora", "descripcion"}
-    
-    # Validación: Verifica que no haya propiedades adicionales
-    if not propiedades_permitidas.issuperset(data.keys()):
-        return jsonify({"error": "Propiedades no permitidas en el cuerpo de la solicitud"}), 400
+    if request.method == 'GET':
+        return render_template('crear_cita.html')  # Página para crear la cita
 
-    # Agregar fecha de creación
-    fecha_creacion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    if request.method == 'POST':
+        data = request.form  # Obtener datos del formulario
 
-    # Generar el prefijo de numeroDeCita
-    fecha_actual = datetime.now().strftime("%y%m%d")
-    #citas_hoy = citas_collection.count_documents({"numeroDeCita": {"$regex": f"^C{fecha_actual}"}}) + 1
-    
-    # Buscar el mayor numeroDeCita para la fecha actual
-    ultima_cita = citas_collection.find_one(
-        {"numeroDeCita": {"$regex": f"^C{fecha_actual}"}},
-        sort=[("numeroDeCita", -1)]
-    )
-    if ultima_cita and "numeroDeCita" in ultima_cita:
-        ultimo_numero = int(ultima_cita["numeroDeCita"][-3:])  # Extraer los últimos 3 dígitos
-    else:
-        ultimo_numero = 0
+        # Aquí validas los datos recibidos, por ejemplo, nombre, fecha, hora y descripción
+        nombre = data.get('nombre')
+        fecha_cita = data.get('fechaCita')
+        hora = data.get('hora')
+        descripcion = data.get('descripcion')
 
-    # Incrementar el número de cita
-    siguiente_numero = ultimo_numero + 1
-    numero_de_cita = f"C{fecha_actual}{siguiente_numero:03}"
+        if not nombre or not fecha_cita or not hora or not descripcion:
+            return "Todos los campos son obligatorios", 400
 
-    cita = {
-        "nombre": data.get("nombre"),
-        "fechaCita": data.get("fecha"),
-        "hora": data.get("hora"),
-        "descripcion": data.get("descripcion"),
-        "fechaDeCreacion": fecha_creacion,
-        "numeroDeCita": numero_de_cita
-    }
-    result = citas_collection.insert_one(cita)
-    return jsonify({"message": "Cita creada", "numeroDeCita": numero_de_cita}), 201
+        # Guardar la nueva cita en la base de datos
+        db = client["proyecto"]
+        citas_collection = db["citas"]
+        numero_de_cita = str(datetime.now().timestamp())  # Usamos un timestamp para el número de cita único
+
+        # Inserción en la base de datos
+        cita = {
+            "numeroDeCita": numero_de_cita,
+            "nombre": nombre,
+            "fechaCita": fecha_cita,
+            "hora": hora,
+            "descripcion": descripcion,
+            "fechaActualizacion": datetime.now().strftime("%d/%m/%Y %I:%M:%S %p")
+        }
+
+        citas_collection.insert_one(cita)
+
+        # Redirigir al menú de citas después de crear la cita
+        return redirect(url_for('menu_cita'))
 
 # Ruta para consultar todas las citas
 @app.route('/ver/citas', methods=['GET'])
@@ -185,8 +179,9 @@ def obtener_cita(numeroDeCita):
         }), 200
     return jsonify({"message": "Cita no encontrada"}), 404
 
-# Ruta para actualizar una cita
-@app.route('/modificar/cita/<numeroDeCita>', methods=['GET', 'PUT'])
+#Modificar cita
+
+@app.route('/modificar/cita/<numeroDeCita>', methods=['GET', 'POST'])
 def modificar_cita(numeroDeCita):
     db = client["proyecto"]
     citas_collection = db["citas"]
@@ -198,28 +193,43 @@ def modificar_cita(numeroDeCita):
             return render_template("modificar_cita.html", cita=cita)
         return jsonify({"error": "Cita no encontrada"}), 404
 
-    if request.method == 'PUT':
-        data = request.json
-        propiedades_permitidas = {"nombre", "fecha", "hora", "descripcion"}
+    if request.method == 'POST':  # Cambié PUT por POST
+        try:
+            # Obtener los datos del formulario
+            nombre = request.form['nombre']
+            fechaCita = request.form['fechaCita']
+            hora = request.form['hora']
+            descripcion = request.form['comentarios']
 
-        if not propiedades_permitidas.issuperset(data.keys()):
-            return jsonify({"error": "Propiedades no permitidas"}), 400
+            print(f"Datos recibidos: {nombre}, {fechaCita}, {hora}, {descripcion}")  # Agregar para depuración
 
-        fecha_actualizacion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        update_result = citas_collection.update_one(
-            {"numeroDeCita": numeroDeCita},
-            {"$set": {
-                "nombre": data.get("nombre"),
-                "fechaCita": data.get("fecha"),
-                "hora": data.get("hora"),
-                "descripcion": data.get("descripcion"),
-                "fechaActualizacion": fecha_actualizacion
-            }}
-        )
+            # Fecha de actualización - obtenemos la fecha y hora actual del servidor
+            fecha_actualizacion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-        if update_result.matched_count == 1:
-            return jsonify({"message": "Cita actualizada"}), 200
-        return jsonify({"error": "Cita no encontrada"}), 404
+            # Actualizar la cita en la base de datos
+            update_result = citas_collection.update_one(
+                {"numeroDeCita": numeroDeCita},
+                {"$set": {
+                    "nombre": nombre,
+                    "fechaCita": fechaCita,
+                    "hora": hora,
+                    "descripcion": descripcion,
+                    "fechaActualizacion": fecha_actualizacion  # Usamos la fecha y hora actuales
+                }}
+            )
+
+            print(f"Resultado de actualización: {update_result.modified_count}")  # Verificar la cantidad de documentos modificados
+
+            if update_result.matched_count == 1:
+                # Redirigir al menú de citas después de la actualización
+                return redirect(url_for('menu_cita'))  # 'menu_cita' es el nombre de la ruta que muestra el menú de citas
+            return jsonify({"error": "Cita no encontrada"}), 404
+        except Exception as e:
+            print(f"Error al procesar la solicitud: {str(e)}")  # Mostrar el error en la consola
+            return jsonify({"error": "Error en el servidor"}), 500
+
+
+
 
 
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cita</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/Screar_cita.css') }}">
+</head>
+<body>
+    <!-- Botón de regreso -->
+    <div class="top-left">
+        <a href="{{ url_for('menu_cita') }}" class="exit-button">Regresar</a>
+    </div>
+
+    <!-- Formulario para crear una nueva cita -->
+    <div class="form-container">
+        <h1>Crear Nueva Cita</h1>
+        <form method="POST" action="{{ url_for('crear_cita') }}">
+            <div class="form-group">
+                <label for="nombre">Nombre del Paciente:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fechaCita">Fecha de la Cita:</label>
+                <input type="date" id="fechaCita" name="fechaCita" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hora">Hora de la Cita:</label>
+                <input type="time" id="hora" name="hora" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" required></textarea>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="submit-button">Crear Cita</button>
+                <a href="{{ url_for('menu_cita') }}" class="cancel-button">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
