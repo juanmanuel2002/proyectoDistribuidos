@@ -112,11 +112,27 @@ def crear_cita():
 
         if not nombre or not fecha_cita or not hora or not descripcion:
             return "Todos los campos son obligatorios", 400
+        
 
         # Guardar la nueva cita en la base de datos
         db = client["proyecto"]
         citas_collection = db["citas"]
-        numero_de_cita = str(datetime.now().timestamp())  # Usamos un timestamp para el número de cita único
+        
+        # Generar el prefijo de numeroDeCita
+        fecha_actual = datetime.now().strftime("%y%m%d")
+
+        # Buscar el mayor numeroDeCita para la fecha actual
+        ultima_cita = citas_collection.find_one(
+            {"numeroDeCita": {"$regex": f"^C{fecha_actual}"}},
+            sort=[("numeroDeCita", -1)]
+        )
+        if ultima_cita and "numeroDeCita" in ultima_cita:
+            ultimo_numero = int(ultima_cita["numeroDeCita"][-3:])  # Extraer los últimos 3 dígitos
+        else:
+            ultimo_numero = 0
+        # Incrementar el número de cita
+        siguiente_numero = ultimo_numero + 1
+        numero_de_cita = f"C{fecha_actual}{siguiente_numero:03}"
 
         # Inserción en la base de datos
         cita = {
@@ -125,7 +141,7 @@ def crear_cita():
             "fechaCita": fecha_cita,
             "hora": hora,
             "descripcion": descripcion,
-            "fechaActualizacion": datetime.now().strftime("%d/%m/%Y %I:%M:%S %p")
+            "fechaActualizacion": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         }
 
         citas_collection.insert_one(cita)
